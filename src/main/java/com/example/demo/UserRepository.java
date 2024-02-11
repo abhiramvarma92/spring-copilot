@@ -1,10 +1,6 @@
 package com.example.demo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-import com.example.demo.User;
-
-@Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends ReactiveCrudRepository<User, Long> {
 }

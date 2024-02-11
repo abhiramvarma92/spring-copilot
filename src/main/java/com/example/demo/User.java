@@ -1,10 +1,29 @@
+package com.example.demo;
+
 public class User {
+
     private String username;
-    private int id;
     private String firstName;
     private String lastName;
+    private String email;
+    private Long id;
 
-    public User(String username, int id, String firstName, String lastName) {
+    public User(String username, String firstName, String lastName, String email, Long id) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.id = id;
+    }
+
+    public User(String username, String firstName, String lastName, String email) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public User(String username, long id, String firstName, String lastName) {
         this.username = username;
         this.id = id;
         this.firstName = firstName;
@@ -19,11 +38,11 @@ public class User {
         this.username = username;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,5 +60,13 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
