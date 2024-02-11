@@ -1,3 +1,6 @@
+
+package com.example.demo;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +11,6 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/users")
 public class UserController {
 
-    
     private final UserRepository userRepository;
 
     public UserController(UserRepository userRepository) {
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<User>> getUser(@PathVariable String id) {
+    public Mono<ResponseEntity<User>> getUser(@PathVariable Long id) {
         return userRepository.findById(id)
                 .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -33,10 +35,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<User>> updateUser(@PathVariable String id, @RequestBody User user) {
+    public Mono<ResponseEntity<User>> updateUser(@PathVariable Long id, @RequestBody User user) {
         return userRepository.findById(id)
                 .flatMap(existingUser -> {
-                    existingUser.setName(user.getName());
+                    existingUser.setFirstName(user.getFirstName());
                     existingUser.setEmail(user.getEmail());
                     return userRepository.save(existingUser);
                 })
@@ -45,7 +47,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> deleteUser(@PathVariable String id) {
+    public Mono<ResponseEntity<Void>> deleteUser(@PathVariable Long id) {
         return userRepository.findById(id)
                 .flatMap(existingUser -> userRepository.delete(existingUser)
                         .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK))))
